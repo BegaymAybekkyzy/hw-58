@@ -1,35 +1,28 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import Modal from './components/UI/Modal/Modal.tsx';
+import { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const closeOrOpenModal = () => {
+    setShowModal(prevState => !prevState);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Modal show={showModal} onClose={closeOrOpenModal}>
+        <div className="p-3">This is modal content</div>
+      </Modal>
+
+      <div className="container">
+        <div className="p-3">
+          <p>lvl 1</p>
+          <button className="btn btn-dark" onClick={closeOrOpenModal}>Open modal</button>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
     </>
   );
-}
+};
 
 export default App;
