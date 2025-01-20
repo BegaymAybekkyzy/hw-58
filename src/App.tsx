@@ -1,6 +1,6 @@
-import Modal from "./components/UI/Modal/Modal.tsx";
 import { useState } from "react";
 import { IButton } from "./types";
+import Modal from "./components/UI/Modal/Modal.tsx";
 import Alert from './components/UI/Alert/Alert.tsx';
 
 const App = () => {
@@ -43,6 +43,7 @@ const App = () => {
       <Alert
         type="warning"
         show={showAlert}
+        clickDismissable
         onDismiss={closeOrOpenAlert}>
         This is a warning type alert
       </Alert>
@@ -51,15 +52,15 @@ const App = () => {
       <div className="container">
         <div className="row justify-content-center mt-5">
           <div className="p-3 col-2">
-            <p>lvl 1</p>
-            <button className="btn btn-dark" onClick={closeOrOpenModal}>
+            <p className="text-center">lvl 1</p>
+            <button className="btn btn-dark w-100" onClick={closeOrOpenModal}>
               Open modal
             </button>
           </div>
 
           <div className="p-3 col-2">
-            <p>lvl 2</p>
-            <button className="btn btn-primary" onClick={closeOrOpenAlert}>
+            <p className="text-center">lvl 2</p>
+            <button className="btn btn-primary w-100" onClick={closeOrOpenAlert}>
               Open alert
             </button>
           </div>

@@ -1,43 +1,54 @@
 import BackDrop from '../BackDrop/BackDrop.tsx';
 import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { popup } from '../FramerVariants/FramerVariants.tsx';
 
 interface Props {
   type?: 'success' | 'primary' | 'warning' | 'danger';
   onDismiss?: () => void;
   show?: boolean;
   children: React.ReactNode;
+  clickDismissable?: boolean;
 }
 
-const Alert: React.FC<Props> = ({type = 'primary', onDismiss, show = false, children}) => {
+const Alert: React.FC<Props> = ({type = 'primary', onDismiss, show = false, children, clickDismissable = false}) => {
   return (
-    <>
-      <BackDrop show={show} onCLickBackDrop={onDismiss}/>
-      <div
-        className={`alert mx-auto my-4 alert-${type}`}
-        style={
-          {
-            display: show ? 'block' : 'none',
-            position: 'fixed',
-            width: '500px',
-            height: 'auto',
-            top: '30%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            zIndex: 2
-          }
+      <AnimatePresence>
+        {show && (
+          <>
+          < BackDrop show={show}/>
+          <motion.div
+            variants={popup}
+            initial={'initial'}
+            animate={'animate'}
+            exit={'exit'}
+            className={`alert mx-auto my-4 alert-${type}`}
+            onClick={clickDismissable ? onDismiss : undefined}
+            style={
+              {
+                display: show ? 'block' : 'none',
+                position: 'fixed',
+                width: '500px',
+                height: 'auto',
+                top: '20%',
+                left: '35%',
+                transform: 'translate(-50%, -50%)',
+                zIndex: 2
+              }
+            }
+            role="alert">
+            <div className="d-flex justify-content-sm-between ">
+              {children}
+              {clickDismissable ?
+                null
+                : <button className="btn-close" onClick={onDismiss}></button>
+              }
+
+            </div>
+          </motion.div>
+        </>)
         }
-        role="alert">
-        <div className="d-flex justify-content-sm-between ">
-          {children}
-          {onDismiss ?
-            <button className="btn-close" onClick={onDismiss}></button>
-            : null
-          }
-
-        </div>
-      </div>
-    </>
-
+      </AnimatePresence>
   );
 };
 
