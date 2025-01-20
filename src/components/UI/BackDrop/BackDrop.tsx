@@ -1,15 +1,17 @@
-import React from 'react';
+import React from "react";
 
 interface Props {
   show?: boolean;
+  onCLickBackDrop?: React.MouseEventHandler;
 }
 
-const BackDrop: React.FC<Props> = ({show = false}) => {
+const BackDrop: React.FC<Props> = ({ show = false, onCLickBackDrop }) => {
   return (
     <>
       <div
         className={`modal-backdrop show`}
-        style={{display: show ? 'block' : 'none'}}
+        style={{ display: show ? "block" : "none", zIndex: 1 }}
+        onClick={onCLickBackDrop}
       />
     </>
   );

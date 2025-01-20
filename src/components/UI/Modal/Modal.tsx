@@ -11,7 +11,7 @@ interface Props {
 }
 
 const Modal: React.FC<Props> = ({
-  show = true,
+  show = false,
   onClose,
   title = "Modal title",
   children,
@@ -19,8 +19,19 @@ const Modal: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <BackDrop show={show} />
-      <div className="modal show" style={{ display: show ? "block" : "none" }}>
+      <BackDrop show={show} onCLickBackDrop={onClose}/>
+      <div className="modal show"
+           style={
+        {
+          display: show ? "block" : "none" ,
+          position: "fixed",
+          width: "500px",
+          height: "auto",
+          top: "30%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }
+      }>
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -30,8 +41,9 @@ const Modal: React.FC<Props> = ({
             <div className="modal-body">{children}</div>
             <div className="modal-footer">
               {buttons
-                ? buttons.map((btn) => (
+                ? buttons.map((btn, index) => (
                     <button
+                      key={index}
                       className={`btn btn-${btn.type}`}
                       onClick={() => btn.onClick()}
                     >
